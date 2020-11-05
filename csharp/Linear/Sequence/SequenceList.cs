@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Linear
+namespace Linear.Sequence
 {
     public class SequenceList<T> : ILinearList<T>
     {
@@ -77,6 +77,16 @@ namespace Linear
             }
 
             return -1;
+        }
+
+        public void Append(T e)
+        {
+            this._list.Add(e);
+        }
+
+        public void Remove(T e)
+        {
+            this._list.Remove(e);
         }
     }
 }

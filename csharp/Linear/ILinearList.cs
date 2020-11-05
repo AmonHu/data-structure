@@ -44,5 +44,18 @@ namespace Linear
         /// <param name="e">元素值</param>
         /// <returns>元素索引</returns>
         int FindElement(T e);
+
+        /// <summary>
+        /// 添加元素
+        /// </summary>
+        /// <param name="e">元素</param>
+        void Append(T e);
+
+        /// <summary>
+        /// 移除元素
+        /// </summary>
+        /// <param name="e">元素</param>
+        void Remove(T e);
+
     }
 }

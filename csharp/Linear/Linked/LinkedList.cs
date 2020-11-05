@@ -1,19 +1,12 @@
-namespace Linear
+namespace Linear.Linked
 {
-    public class Node<T> : INode<T>
-    {
-        public Node(T value)
-        {
-            this.Value = value;
-        }
 
-        public T Value { get; set; }
-        public INode<T> Next { get; set; }
-    }
 
     public class LinkedList<T> : ILinearList<T>
     {
         private INode<T> _head;
+        private int _length;
+        private INode<T> _currentNode;
 
         /// <summary>
         /// 初始化列表
@@ -21,6 +14,8 @@ namespace Linear
         public void InitList()
         {
             this._head = default;
+            this._currentNode = this._head;
+            this._length = 0;
         }
 
         /// <summary>
@@ -28,7 +23,9 @@ namespace Linear
         /// </summary>
         public void DestroyList()
         {
-            this._head = default;
+            this._head = null;
+            this._currentNode = this._head;
+            this._length = 0;
         }
 
         /// <summary>
@@ -36,7 +33,7 @@ namespace Linear
         /// </summary>
         public void ClearList()
         {
-            this._head = default;
+            this.InitList();
         }
 
         /// <summary>
@@ -45,7 +42,7 @@ namespace Linear
         /// <returns>true/false</returns>
         public bool IsEmpty()
         {
-            return this._head.Next == null;
+            return this._length == 0;
         }
 
         /// <summary>
@@ -54,15 +51,7 @@ namespace Linear
         /// <returns>长度</returns>
         public int GetLength()
         {
-            var length = 0;
-            var p = this._head;
-            while (p.Next != null)
-            {
-                length++;
-                p = p.Next;
-            }
-
-            return length;
+            return _length;
         }
 
         /// <summary>
@@ -104,6 +93,29 @@ namespace Linear
             }
 
             return -1;
+        }
+
+        public void Append(T e)
+        {
+            this._currentNode.Next = new Node<T>(e);
+            this._length++;
+        }
+
+        public void Remove(T e)
+        {
+            var p = this._head;
+            var q = p;
+            while (p != null)
+            {
+                if (!p.Value.Equals(e))
+                {
+                    q.Next = p.Next;
+                    this._length--;
+                }
+
+                q = p;
+                p = p.Next;
+            }
         }
     }
 }
