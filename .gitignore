@@ -5,3 +5,10 @@
 /typescript/.idea/
 /cpp/.idea/
 /python/.idea/
+/csharp/*/bin/
+/csharp/*/obj/
+/cpp/cmake-build-debug/
+/typescript/dist/
+
+/csharp/Linear/bin/
+/csharp/Linear/obj/
