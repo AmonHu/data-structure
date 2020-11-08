@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Linear.Sequence
@@ -39,6 +40,10 @@ namespace Linear.Sequence
         /// <returns>true/false</returns>
         public bool IsEmpty()
         {
+            if (this._list == null)
+            {
+                throw new NullReferenceException("the list is null");
+            }
             return this._list.Count == 0;
         }
 
@@ -48,6 +53,10 @@ namespace Linear.Sequence
         /// <returns>长度</returns>
         public int GetLength()
         {
+            if (this._list == null)
+            {
+                throw new NullReferenceException("the list is null");
+            }
             return this._list.Count;
         }
 

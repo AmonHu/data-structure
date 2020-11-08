@@ -20,7 +20,14 @@ namespace Linear.Test
             this._sequence.InitList();
             Assert.AreEqual(0,this._sequence.GetLength());
         }
-        
+
+        [Test]
+        public void DestroyListTest()
+        {
+            this._sequence.DestroyList();
+            //Assert.AreEqual(0, this._sequence.GetLength());
+        }
+
         [Test]
         public void AppendTest()
         {
