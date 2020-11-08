@@ -1,19 +1,19 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Linear.Linked
 {
-    public class LinkedList<T> : ILinearList<T>
+    /// <summary>
+    /// 双向链表
+    /// </summary>
+    public class DoublyLinkedList<T> : LinkedList<T>
     {
-        private INode<T> _head;
-        private INode<T> _currentNode;
+        private IDoublyNode<T> _head;
+        private IDoublyNode<T> _currentNode;
 
-        /// <summary>
-        /// 长度
-        /// </summary>
-        public virtual int Length { get; protected set; }
 
-        public virtual T this[int i]
+        public override T this[int i]
         {
             get
             {
@@ -27,34 +27,22 @@ namespace Linear.Linked
             }
         }
 
-        public LinkedList()
+        public DoublyLinkedList()
         {
             this.InitList();
         }
 
         /// <summary>
-        /// 验证索引
-        /// </summary>
-        /// <param name="index">索引</param>
-        protected void VerifyIndex(int index) 
-        {
-            if (index > this.Length)
-            {
-                throw new IndexOutOfRangeException();
-            }
-        }
-
-        /// <summary>
         /// 初始化列表
         /// </summary>
-        protected virtual void InitList()
+        protected override void InitList()
         {
-            this._head = new Node<T>(default);
+            this._head = new DoublyNode<T>(default);
             this._currentNode = this._head;
             this.Length = 0;
         }
 
-        private (INode<T> Node1, INode<T> Node2) Traverse(int index)
+        private (IDoublyNode<T> Node1, IDoublyNode<T> Node2) Traverse(int index)
         {
             var i = 0;
             var p = this._head.Next;
@@ -72,18 +60,9 @@ namespace Linear.Linked
         /// <summary>
         /// 清空列表
         /// </summary>
-        public virtual void Clear()
+        public override void Clear()
         {
             this.InitList();
-        }
-
-        /// <summary>
-        /// 判断是否为空
-        /// </summary>
-        /// <returns>true/false</returns>
-        public bool IsEmpty()
-        {
-            return this.Length == 0;
         }
 
 
@@ -92,7 +71,7 @@ namespace Linear.Linked
         /// </summary>
         /// <param name="e">元素值</param>
         /// <returns>元素索引</returns>
-        public virtual int Find(T e)
+        public override int Find(T e)
         {
             var i = 0;
             var p = this._head;
@@ -114,9 +93,11 @@ namespace Linear.Linked
         /// 添加元素
         /// </summary>
         /// <param name="e">元素</param>
-        public virtual void Add(T e)
+        public override void Add(T e)
         {
-            this._currentNode.Next = new Node<T>(e);
+            var p = new DoublyNode<T>(e);
+            this._currentNode.Next = p;
+            p.Previous = this._currentNode;
             this._currentNode = this._currentNode.Next;
             this.Length++;
         }
@@ -126,19 +107,20 @@ namespace Linear.Linked
         /// </summary>
         /// <param name="index">索引</param>
         /// <param name="e">元素</param>
-        public virtual void Add(int index, T e)
+        public override void Add(int index, T e)
         {
             this.VerifyIndex(index);
             var nodes = this.Traverse(index);
-            var q = new Node<T>(e) { Next = nodes.Node2 };
+            var q = new DoublyNode<T>(e, nodes.Node2, nodes.Node1);
             nodes.Node1.Next = q;
+            nodes.Node2.Previous = q;
         }
 
         /// <summary>
         /// 移除元素
         /// </summary>
         /// <param name="e">元素</param>
-        public virtual void Remove(T e)
+        public override void Remove(T e)
         {
             var p = this._head.Next;
             var q = p;
@@ -150,29 +132,15 @@ namespace Linear.Linked
                     {
                         this._currentNode = q;
                     }
-
+                    p.Next.Previous = q;
                     q.Next = p.Next;
+
                     this.Length--;
                 }
 
                 q = p;
                 p = p.Next;
             }
-        }
-
-        /// <summary>
-        /// 转字符串
-        /// </summary>
-        public override string ToString()
-        {
-            var list = new List<T>();
-            var p = this._head.Next;
-            while (p != null)
-            {
-                list.Add(p.Value);
-                p = p.Next;
-            }
-            return string.Join(",", list);
         }
     }
 }

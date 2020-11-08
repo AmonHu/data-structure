@@ -10,26 +10,32 @@ namespace Linear.Sequence
         /// </summary>
         private List<T> _list;
 
+        public T this[int i]
+        {
+            get { return this._list[i]; }
+            set { this._list[i] = value; }
+        }
+
         /// <summary>
-        /// 初始化列表
+        /// 长度
         /// </summary>
-        public void InitList()
+        public int Length
+        {
+            get
+            {
+                return this._list.Count;
+            }
+        }
+
+        public SequenceList()
         {
             this._list = new List<T>();
         }
 
         /// <summary>
-        /// 销毁列表
-        /// </summary>
-        public void DestroyList()
-        {
-            this._list = null;
-        }
-
-        /// <summary>
         /// 清空列表
         /// </summary>
-        public void ClearList()
+        public void Clear()
         {
             this._list.Clear();
         }
@@ -40,32 +46,17 @@ namespace Linear.Sequence
         /// <returns>true/false</returns>
         public bool IsEmpty()
         {
-            if (this._list == null)
-            {
-                throw new NullReferenceException("the list is null");
-            }
             return this._list.Count == 0;
         }
 
-        /// <summary>
-        /// 获取长度
-        /// </summary>
-        /// <returns>长度</returns>
-        public int GetLength()
-        {
-            if (this._list == null)
-            {
-                throw new NullReferenceException("the list is null");
-            }
-            return this._list.Count;
-        }
+
 
         /// <summary>
         /// 访问元素
         /// </summary>
         /// <param name="index">元素索引</param>
         /// <returns>元素值</returns>
-        public T GetElement(int index)
+        public T Find(int index)
         {
             return this._list[index];
         }
@@ -75,7 +66,7 @@ namespace Linear.Sequence
         /// </summary>
         /// <param name="e">元素值</param>
         /// <returns>元素索引</returns>
-        public int FindElement(T e)
+        public int Find(T e)
         {
             for (var i = 0; i < this._list.Count; i++)
             {
@@ -88,14 +79,34 @@ namespace Linear.Sequence
             return -1;
         }
 
-        public void Append(T e)
+        public void Add(T e)
         {
             this._list.Add(e);
+        }
+
+        /// <summary>
+        /// 添加元素
+        /// </summary>
+        /// <param name="index">索引</param>
+        /// <param name="e">元素</param>
+        public void Add(int index, T e) 
+        {
+            if (index > this._list.Count)
+            {
+                throw new IndexOutOfRangeException();
+            }
+
+            this._list.Insert(index, e);
         }
 
         public void Remove(T e)
         {
             this._list.Remove(e);
+        }
+
+        public override string ToString()
+        {
+            return string.Join(",", this._list);
         }
     }
 }

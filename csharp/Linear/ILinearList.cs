@@ -4,58 +4,54 @@ namespace Linear
 {
     public interface ILinearList<T>
     {
+        T this[int i] { get; set; }
+
         /// <summary>
-        /// 初始化列表
+        /// 长度
         /// </summary>
-        void InitList();
-        
-        /// <summary>
-        /// 销毁列表
-        /// </summary>
-        void DestroyList();
-        
+        int Length { get; }
+
         /// <summary>
         /// 清空列表
         /// </summary>
-        void ClearList();
-        
+        void Clear();
+
         /// <summary>
         /// 判断是否为空
         /// </summary>
         /// <returns>true/false</returns>
         bool IsEmpty();
-        
-        /// <summary>
-        /// 获取长度
-        /// </summary>
-        /// <returns>长度</returns>
-        int GetLength();
-        
-        /// <summary>
-        /// 访问元素
-        /// </summary>
-        /// <param name="index">元素索引</param>
-        /// <returns>元素值</returns>
-        T GetElement(int index);
-        
+
         /// <summary>
         /// 查找元素索引
         /// </summary>
         /// <param name="e">元素值</param>
         /// <returns>元素索引</returns>
-        int FindElement(T e);
+        int Find(T e);
 
         /// <summary>
         /// 添加元素
         /// </summary>
         /// <param name="e">元素</param>
-        void Append(T e);
+        void Add(T e);
+
+        /// <summary>
+        /// 添加元素
+        /// </summary>
+        /// <param name="index">索引</param>
+        /// <param name="e">元素</param>
+        void Add(int index, T e);
 
         /// <summary>
         /// 移除元素
         /// </summary>
         /// <param name="e">元素</param>
         void Remove(T e);
+
+        /// <summary>
+        /// 转字符串
+        /// </summary>
+        string ToString();
 
     }
 }

@@ -1,42 +1,31 @@
+﻿using NUnit.Framework;
 using System;
-using Linear.Sequence;
-using NUnit.Framework;
+using Linear.Linked;
+using System.Text;
 
 namespace Linear.Test
 {
-    public class SequenceListTest
+    class LinkedListTest
     {
-        private SequenceList<int> _list;
+        private LinkedList<int> _list;
         [SetUp]
         public void Setup()
         {
-            this._list = new SequenceList<int>();
+            this._list = new LinkedList<int>();
         }
+
 
         [Test]
-        public void InitListTest()
+        public void IsEmptyTest() 
         {
-            Assert.AreEqual(0, this._list.Length);
+            Assert.IsTrue(this._list.IsEmpty());
         }
-
 
         [Test]
         public void AppendTest()
         {
-            this._list.Add(123);
-            Assert.AreEqual(1, this._list.Length);
-        }
-        [Test]
-        public void FindElementTest()
-        {
             this._list.Add(1);
-            this._list.Add(2);
-            this._list.Add(3);
-            this._list.Add(5);
-            this._list.Add(4);
-
-            Assert.AreEqual(4, this._list.Find(4));
-
+            Assert.AreEqual(1, this._list.Length);
         }
 
         [Test]
@@ -45,15 +34,14 @@ namespace Linear.Test
             this._list.Add(1);
             this._list.Add(2);
             this._list.Add(3);
-            this._list.Add(5);
             this._list.Add(4);
+            this._list.Add(5);
             this._list.Remove(4);
-
-            Assert.AreEqual(4, this._list.Length);
+            Assert.AreEqual("1,2,3,5", this._list.ToString());
         }
 
         [Test]
-        public void IndexTest() 
+        public void IndexTest()
         {
             this._list.Add(1);
             this._list.Add(2);
@@ -65,9 +53,5 @@ namespace Linear.Test
             this._list[2] = 6;
             Assert.AreEqual(6, this._list[2]);
         }
-
-
     }
-
-
 }
